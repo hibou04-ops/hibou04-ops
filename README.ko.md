@@ -17,7 +17,7 @@
 아래 명령은 접힌 설정 예제의 재현 가능한 입력으로 실행했습니다. **색상 줄은 실제 fixture 결과의 요약이며, stdout 원문은 아닙니다.** `-` / `+`는 diff 강조 표시입니다. 한 번 설치하면 아래 검사는 API 키 없이 오프라인으로 실행됩니다.
 
 ```diff
-$ python -m pip install antemortem==0.12.3 mini-antemortem-cli==0.11.3 mini-omega-lock==0.8.5 omegaprompt==2.2.5 omega-lock==0.3.12 antemortem-structural-lab==0.8.2
+$ python -m pip install antemortem==0.12.4 mini-antemortem-cli==0.11.5 mini-omega-lock==0.8.6 omegaprompt==2.2.8 omega-lock==0.3.13 antemortem-structural-lab==0.8.2
 
 # 1. 파일 끝을 넘는 에이전트 인용을 잡고, 주장한 AST 심볼을 별도로 검사:
 $ antemortem metrics agent_patch_claim.json --repo . --fail-over 0
@@ -81,11 +81,11 @@ for name, prefix in [("tune_set.jsonl", "train"), ("test_set.jsonl", "test")]:
 
 | 워크플로우에서 겪고 있는 문제 | 설치 및 실행 (`PyPI · Apache-2.0`) | 결정론적 검사 범위 | 인터페이스 |
 | :--- | :--- | :--- | :--- |
-| **코딩 에이전트가 없는 `file:line`이나 심볼을 인용함** | [**`antemortem-cli`**](https://github.com/hibou04-ops/antemortem-cli) · `pip install antemortem==0.12.3` | 로컬 소스의 실제 행 범위와 인용 대조; 별도 Python AST 심볼 helper | `CLI` · `Python API` · `MCP` · `GitHub Action` |
-| **평가 설정에 누수나 편향 함정이 숨어 있음** | [**`mini-antemortem-cli`**](https://github.com/hibou04-ops/mini-antemortem-cli) · `pip install mini-antemortem-cli==0.11.3` | 분할 중복, 편향, 동질적 변이 등을 포함하는 **평가 함정 규칙 11종**의 사전 정적 검사 | `CLI` · `CI Gate` |
-| **A/B 프롬프트 점수 상승이 Judge 노이즈일 수 있음** | [**`mini-omega-lock`**](https://github.com/hibou04-ops/mini-omega-lock) · `pip install mini-omega-lock==0.8.5` | 측정 delta의 경험적 노이즈 경계; endpoint를 이용하는 측정 preflight | `CLI: preflight` · `Python API` |
-| **개발셋에 맞춘 프롬프트가 홀드아웃 검사에서 실패함** | [**`omegaprompt`**](https://github.com/hibou04-ops/omegaprompt) · `pip install omegaprompt==2.2.5` | 프롬프트 평가·보정, 설정 및 홀드아웃 분할 검사; 문서화된 `promptfoo` / `DSPy` 워크플로우 | `CLI` · `MCP` · `CI Gate` |
-| **하이퍼파라미터·스윕 최적화(Optuna 등)가 과적합됨** | [**`omega-lock`**](https://github.com/hibou04-ops/omega-lock) · `pip install omega-lock==0.3.12` | 워크포워드·홀드아웃 검사, 점수 저하 방어 및 별도의 SHA-256 무결성 영수증 워크플로우 | `CLI` · `Python API` |
+| **코딩 에이전트가 없는 `file:line`이나 심볼을 인용함** | [**`antemortem-cli`**](https://github.com/hibou04-ops/antemortem-cli) · `pip install antemortem==0.12.4` | 로컬 소스의 실제 행 범위와 인용 대조; 별도 Python AST 심볼 helper | `CLI` · `Python API` · `MCP` · `GitHub Action` |
+| **평가 설정에 누수나 편향 함정이 숨어 있음** | [**`mini-antemortem-cli`**](https://github.com/hibou04-ops/mini-antemortem-cli) · `pip install mini-antemortem-cli==0.11.5` | 분할 중복, 편향, 동질적 변이 등을 포함하는 **평가 함정 규칙 11종**의 사전 정적 검사 | `CLI` · `CI Gate` |
+| **A/B 프롬프트 점수 상승이 Judge 노이즈일 수 있음** | [**`mini-omega-lock`**](https://github.com/hibou04-ops/mini-omega-lock) · `pip install mini-omega-lock==0.8.6` | 측정 delta의 경험적 노이즈 경계; endpoint를 이용하는 측정 preflight | `CLI: preflight` · `Python API` |
+| **개발셋에 맞춘 프롬프트가 홀드아웃 검사에서 실패함** | [**`omegaprompt`**](https://github.com/hibou04-ops/omegaprompt) · `pip install omegaprompt==2.2.8` | 프롬프트 평가·보정, 설정 및 홀드아웃 분할 검사; 문서화된 `promptfoo` / `DSPy` 워크플로우 | `CLI` · `MCP` · `CI Gate` |
+| **하이퍼파라미터·스윕 최적화(Optuna 등)가 과적합됨** | [**`omega-lock`**](https://github.com/hibou04-ops/omega-lock) · `pip install omega-lock==0.3.13` | 워크포워드·홀드아웃 검사, 점수 저하 방어 및 별도의 SHA-256 무결성 영수증 워크플로우 | `CLI` · `Python API` |
 | **취약한 코드 경로에 반례 프로브가 필요함** | [**`antemortem-structural-lab`**](https://github.com/hibou04-ops/antemortem-structural-lab) · `pip install antemortem-structural-lab==0.8.2` | 실험적 AST 구조 프로빙, 계약·Oracle 기반 실행 피드백 및 결정론적 반례 재현 | `CLI` · `Python API` |
 
 설치 후 로컬 검증은 모델 서비스 없이 실행할 수 있습니다. 평가·추론 경로는 설정된 provider를 사용할 수 있습니다. MCP는 각 저장소에 명시된 extra와 지원 entry point를 사용하십시오.
@@ -137,7 +137,7 @@ for name, prefix in [("tune_set.jsonl", "train"), ("test_set.jsonl", "test")]:
 
 ## 🔐 암호학적 아티팩트 무결성 증명 및 SHA-256 해시 원장
 
-`omega-citadel`과 `omega-crucible`은 **`All Rights Reserved` 개인 R&D 비공개 아티팩트**입니다. 아래에 기록된 wheel, 소스 압축 파일 및 컴파일된 바이트코드 `locked-runtime.zip` 번들은 접근 권한이 있는 검증자를 위한 고정 해시입니다. 공개 영역에는 6개 버전의 PyPI 파일을 각각 2개씩 기록했습니다. **아티팩트 해시 17개**를 실제 바이트와 대조했고, 공개 해시는 현재 PyPI 메타데이터와도 일치합니다(**2026-11-03**).
+`omega-citadel`과 `omega-crucible`은 **`All Rights Reserved` 개인 R&D 비공개 아티팩트**입니다. 아래에 기록된 wheel, 소스 압축 파일 및 컴파일된 바이트코드 `locked-runtime.zip` 번들은 접근 권한이 있는 검증자를 위한 고정 해시입니다. 공개 영역에는 6개 버전의 PyPI 파일을 각각 2개씩 기록했습니다. 아래 **공개 아티팩트 해시 12개**를 **2026-11-06**에 다운로드한 PyPI 파일 바이트 및 라이브 메타데이터와 다시 대조했습니다. **비공개 아티팩트 해시 5개**는 이전에 검증한 원장 항목을 그대로 유지합니다.
 
 다음 블록을 그대로 복사해 해당 파일들과 같은 디렉터리의 `SHA256SUMS.txt`로 저장하십시오.
 
@@ -150,16 +150,16 @@ fbf374e0ea9f8888bc00c64bf57fb13062ee57908df68150c7a2ccddc4ac45bc  omega_citadel-
 1f5282884bd2316e5cfa4a8733ed417d395c5ea71c60fc20ab70fec735b7cc34  omega-crucible-1.0.3-locked-runtime.zip
 
 # Tier 1: Six public PyPI releases (wheel + source archive)
-7eedb82f97091256f53b3856486f4338b2231bc1bda3e770411de8177a039801  antemortem-0.12.3-py3-none-any.whl
-81238122c30c0008144554140ad57acee706cebfb4dca9622c9d362dcdacd7bd  antemortem-0.12.3.tar.gz
-7990a0e7ba76748657242bc1dcc81d4290b8e3a4c45b2e7da2665bcccd0ead84  mini_antemortem_cli-0.11.3-py3-none-any.whl
-51878281a803e26e87cff7985e316bd2b58ea7e3f2de625e70c94f2cd0c8c3e5  mini_antemortem_cli-0.11.3.tar.gz
-c3145d703948deaf21f2c9305cddca7211af22b0fb2810cfe2a1c25bf44914e9  mini_omega_lock-0.8.5-py3-none-any.whl
-3b22d7ce3261793f488e1bf46970a7734e7895ee78d1756a740ce1deb1155eef  mini_omega_lock-0.8.5.tar.gz
-127eb50b1a7b100a932c2e893dc8af10ffb2a4bdd18bd028a19ca5222815d43b  omegaprompt-2.2.5-py3-none-any.whl
-c85dbf97cbe12761ec3a88022ba7c257d059a4fddf1e9bb82677e11dfbc81e92  omegaprompt-2.2.5.tar.gz
-6dd698c24954d6fd5a0292f77569b8ecd8b0dbfe7f8cfdc553d22a4f5c54c180  omega_lock-0.3.12-py3-none-any.whl
-b5c1957749a93ee697f52a7401e26311ce5410874c55f6a252018d79395295de  omega_lock-0.3.12.tar.gz
+395ab96a6979ae5130397e507c07f48c8a338f5697df459f19df3101ab413323  antemortem-0.12.4-py3-none-any.whl
+b37622de01a23a4601827493ad0d0a9e207993524363674f323b1e13aa1ef5ff  antemortem-0.12.4.tar.gz
+f74b4ac55fd41af93816487ac2a694c71aaab2d473ae50d30ea0d2daab751747  mini_antemortem_cli-0.11.5-py3-none-any.whl
+1e55f0de559b2f70baca105f5c8730f3f268ae2d454b112d3bcdd3b8e679afa7  mini_antemortem_cli-0.11.5.tar.gz
+75b32424c7b93b5ee6ee026909bba166cf93a06b4ff9696fe31485c583395a28  mini_omega_lock-0.8.6-py3-none-any.whl
+31bcdcc776d077766857ad0942f0ed6ba97b08204c71ba69f4e6a84f64af2506  mini_omega_lock-0.8.6.tar.gz
+9fab54398337cff17c24a302ea26c0da439e93c06af24cfb36ae026dde93ba90  omegaprompt-2.2.8-py3-none-any.whl
+46654b03634ce08acfcf9ca107f1f9efa8beda592c0b515d6ba8199265f1bedc  omegaprompt-2.2.8.tar.gz
+a50129730e46f04c38add465b2856d24cab68e870f961af704ee96f64cf2fd3b  omega_lock-0.3.13-py3-none-any.whl
+fdff29e4fcf7ea28688733028eda40bdaaf964ad5d94be014116428229dd549d  omega_lock-0.3.13.tar.gz
 8f7fa2662f5adc97b8670031caa1fb332911571d910857145d6bb5613ade001e  antemortem_structural_lab-0.8.2-py3-none-any.whl
 1053aef3e97fecfb22151995c4e1800602e1c6b730fef1431ade39861615c1ff  antemortem_structural_lab-0.8.2.tar.gz
 ```
@@ -171,6 +171,6 @@ b5c1957749a93ee697f52a7401e26311ce5410874c55f6a252018d79395295de  omega_lock-0.3
   ```
 
   공개 파일만 검증하려면 Tier 1의 행만 별도 checksum 파일로 복사하십시오. 해시는 이 원장과의 바이트 동일성을 확인하며, 전자서명이나 아티팩트 안전성의 증거는 아닙니다.
-* **공개 파일 다운로드:** [antemortem 0.12.3](https://pypi.org/project/antemortem/0.12.3/#files) · [mini-antemortem-cli 0.11.3](https://pypi.org/project/mini-antemortem-cli/0.11.3/#files) · [mini-omega-lock 0.8.5](https://pypi.org/project/mini-omega-lock/0.8.5/#files) · [omegaprompt 2.2.5](https://pypi.org/project/omegaprompt/2.2.5/#files) · [omega-lock 0.3.12](https://pypi.org/project/omega-lock/0.3.12/#files) · [antemortem-structural-lab 0.8.2](https://pypi.org/project/antemortem-structural-lab/0.8.2/#files).
+* **공개 파일 다운로드:** [antemortem 0.12.4](https://pypi.org/project/antemortem/0.12.4/#files) · [mini-antemortem-cli 0.11.5](https://pypi.org/project/mini-antemortem-cli/0.11.5/#files) · [mini-omega-lock 0.8.6](https://pypi.org/project/mini-omega-lock/0.8.6/#files) · [omegaprompt 2.2.8](https://pypi.org/project/omegaprompt/2.2.8/#files) · [omega-lock 0.3.13](https://pypi.org/project/omega-lock/0.3.13/#files) · [antemortem-structural-lab 0.8.2](https://pypi.org/project/antemortem-structural-lab/0.8.2/#files).
 * **생태계 검증 원장:** **4,306 PASS**는 공개 패키지 검사, Structural Lab 및 비공개 하네스 실행을 아우르는 과거 실행 누계(**2,160 + 1,561 + 230 + 355**)입니다. 이 페이지의 8개 고정 버전을 새로 동기 실행한 테스트 총계가 아닙니다. 위의 fail-closed 예제는 명시적인 기각 종료 코드를 유지합니다.
 * **English Documentation:** [README.md](./README.md)

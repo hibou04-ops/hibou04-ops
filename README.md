@@ -3,9 +3,9 @@
 > **"Stop auditing stochastic models with more stochastic models."**<br>
 > Offline, zero-API-cost checks for **hallucinated `file:line` citations**, **train/test split leakage**, **LLM-judge noise illusions**, and **prompt/sweep overfitting** before they ship.
 
-![Public Primitives](https://img.shields.io/badge/Public_Primitives-6_Packages_(Apache_2.0)-2ea44f?style=flat-square)
-![Verification Ledger](https://img.shields.io/badge/Historical_Ecosystem_Ledger-4,306_PASS-0969da?style=flat-square)
-![Runtime Contract](https://img.shields.io/badge/Contract-Fail--Closed_%2F_Offline-d73a49?style=flat-square)
+[![Public Primitives](https://img.shields.io/badge/Public_Primitives-6_Packages_(Apache_2.0)-2ea44f?style=flat-square)](https://github.com/hibou04-ops/hibou04-ops#-start-here-pick-the-gate-for-your-failure-mode)
+[![Verification Ledger](https://img.shields.io/badge/Historical_Ecosystem_Ledger-4,306_PASS-0969da?style=flat-square)](https://github.com/hibou04-ops/hibou04-ops#-cryptographic-artifact-attestation--sha-256-ledger)
+[![Runtime Contract](https://img.shields.io/badge/Contract-Fail--Closed_%2F_Offline-d73a49?style=flat-square)](https://github.com/hibou04-ops/hibou04-ops#-10-second-look-what-happens-when-an-agent-lies-or-overfits)
 [![Korean Docs](https://img.shields.io/badge/Docs-%ED%95%9C%EA%B5%AD%EC%96%B4_README-7057ff?style=flat-square)](./README.ko.md)
 
 ---
@@ -17,7 +17,7 @@ A green self-report can hide a broken citation, a contaminated split, or a gain 
 The commands below were exercised with the reproducible inputs in the expandable setup. **Colored lines summarize actual fixture results; they are not verbatim stdout.** `-` / `+` are diff highlighting. Install once; the checks shown then run offline without API keys.
 
 ```diff
-$ python -m pip install antemortem==0.12.3 mini-antemortem-cli==0.11.3 mini-omega-lock==0.8.5 omegaprompt==2.2.5 omega-lock==0.3.12 antemortem-structural-lab==0.8.2
+$ python -m pip install antemortem==0.12.4 mini-antemortem-cli==0.11.5 mini-omega-lock==0.8.6 omegaprompt==2.2.8 omega-lock==0.3.13 antemortem-structural-lab==0.8.2
 
 # 1. Catch a coding agent citing a line beyond EOF, then check its claimed AST symbol:
 $ antemortem metrics agent_patch_claim.json --repo . --fail-over 0
@@ -81,11 +81,11 @@ Don't guess which package to install—match the failure in your AI workflow. Th
 
 | If your AI workflow suffers from... | Install & Run (`PyPI · Apache-2.0`) | What it checks deterministically | Interfaces |
 | :--- | :--- | :--- | :--- |
-| **Coding agent hallucinating `file:line` or symbols** | [**`antemortem-cli`**](https://github.com/hibou04-ops/antemortem-cli) · `pip install antemortem==0.12.3` | Physical line-range citation verification against local sources; separate Python AST symbol helper | `CLI` · `Python API` · `MCP` · `GitHub Action` |
-| **Silent leakage or rigged prompt-eval setups** | [**`mini-antemortem-cli`**](https://github.com/hibou04-ops/mini-antemortem-cli) · `pip install mini-antemortem-cli==0.11.3` | Preflight static linter with **11 evaluation trap rules**, including split overlap, bias, and homogeneous variants | `CLI` · `CI Gate` |
-| **A/B prompt "wins" that may be judge noise** | [**`mini-omega-lock`**](https://github.com/hibou04-ops/mini-omega-lock) · `pip install mini-omega-lock==0.8.5` | Empirical noise ceiling from measured deltas; endpoint-based measurement preflight | `CLI: preflight` · `Python API` |
-| **Prompts that fit development sets but fail held-out checks** | [**`omegaprompt`**](https://github.com/hibou04-ops/omegaprompt) · `pip install omegaprompt==2.2.5` | Prompt evaluation, calibration, configuration and held-out split checks; documented `promptfoo` / `DSPy` workflows | `CLI` · `MCP` · `CI Gate` |
-| **Hyperparameter / sweep overfitting (Optuna, etc.)** | [**`omega-lock`**](https://github.com/hibou04-ops/omega-lock) · `pip install omega-lock==0.3.12` | Walk-forward / holdout checks, score-degradation guards, and separate SHA-256 integrity-receipt workflows | `CLI` · `Python API` |
+| **Coding agent hallucinating `file:line` or symbols** | [**`antemortem-cli`**](https://github.com/hibou04-ops/antemortem-cli) · `pip install antemortem==0.12.4` | Physical line-range citation verification against local sources; separate Python AST symbol helper | `CLI` · `Python API` · `MCP` · `GitHub Action` |
+| **Silent leakage or rigged prompt-eval setups** | [**`mini-antemortem-cli`**](https://github.com/hibou04-ops/mini-antemortem-cli) · `pip install mini-antemortem-cli==0.11.5` | Preflight static linter with **11 evaluation trap rules**, including split overlap, bias, and homogeneous variants | `CLI` · `CI Gate` |
+| **A/B prompt "wins" that may be judge noise** | [**`mini-omega-lock`**](https://github.com/hibou04-ops/mini-omega-lock) · `pip install mini-omega-lock==0.8.6` | Empirical noise ceiling from measured deltas; endpoint-based measurement preflight | `CLI: preflight` · `Python API` |
+| **Prompts that fit development sets but fail held-out checks** | [**`omegaprompt`**](https://github.com/hibou04-ops/omegaprompt) · `pip install omegaprompt==2.2.8` | Prompt evaluation, calibration, configuration and held-out split checks; documented `promptfoo` / `DSPy` workflows | `CLI` · `MCP` · `CI Gate` |
+| **Hyperparameter / sweep overfitting (Optuna, etc.)** | [**`omega-lock`**](https://github.com/hibou04-ops/omega-lock) · `pip install omega-lock==0.3.13` | Walk-forward / holdout checks, score-degradation guards, and separate SHA-256 integrity-receipt workflows | `CLI` · `Python API` |
 | **Fragile code paths needing counterexample probes** | [**`antemortem-structural-lab`**](https://github.com/hibou04-ops/antemortem-structural-lab) · `pip install antemortem-structural-lab==0.8.2` | Experimental structural AST probing, contract/Oracle-driven execution feedback, and deterministic counterexample replay | `CLI` · `Python API` |
 
 Local verification can run without a model service after installation. Evaluation and inference paths may use configured providers. For MCP, install the repository's documented extras and use its supported entry point.
@@ -137,7 +137,7 @@ This workspace is an **independent personal systems engineering & verification r
 
 ## 🔐 Cryptographic Artifact Attestation & SHA-256 Ledger
 
-`omega-citadel` and `omega-crucible` remain private **`All Rights Reserved` personal R&D artifacts**. The recorded wheels, source archives and compiled-bytecode `locked-runtime.zip` bundles below are pinned for authorized integrity checks. The public section pins both PyPI files for each of the six releases. **17 artifact hashes** were checked against actual bytes; public hashes also match current PyPI metadata (**2026-11-03**).
+`omega-citadel` and `omega-crucible` remain private **`All Rights Reserved` personal R&D artifacts**. The recorded wheels, source archives and compiled-bytecode `locked-runtime.zip` bundles below are pinned for authorized integrity checks. The public section pins both PyPI files for each of the six releases. The **12 public artifact hashes** below were rechecked against downloaded PyPI bytes and live metadata on **2026-11-06**. The **five private artifact hashes** retain their earlier verified ledger entries.
 
 Copy the following block verbatim into `SHA256SUMS.txt` beside the corresponding files:
 
@@ -150,16 +150,16 @@ fbf374e0ea9f8888bc00c64bf57fb13062ee57908df68150c7a2ccddc4ac45bc  omega_citadel-
 1f5282884bd2316e5cfa4a8733ed417d395c5ea71c60fc20ab70fec735b7cc34  omega-crucible-1.0.3-locked-runtime.zip
 
 # Tier 1: Six public PyPI releases (wheel + source archive)
-7eedb82f97091256f53b3856486f4338b2231bc1bda3e770411de8177a039801  antemortem-0.12.3-py3-none-any.whl
-81238122c30c0008144554140ad57acee706cebfb4dca9622c9d362dcdacd7bd  antemortem-0.12.3.tar.gz
-7990a0e7ba76748657242bc1dcc81d4290b8e3a4c45b2e7da2665bcccd0ead84  mini_antemortem_cli-0.11.3-py3-none-any.whl
-51878281a803e26e87cff7985e316bd2b58ea7e3f2de625e70c94f2cd0c8c3e5  mini_antemortem_cli-0.11.3.tar.gz
-c3145d703948deaf21f2c9305cddca7211af22b0fb2810cfe2a1c25bf44914e9  mini_omega_lock-0.8.5-py3-none-any.whl
-3b22d7ce3261793f488e1bf46970a7734e7895ee78d1756a740ce1deb1155eef  mini_omega_lock-0.8.5.tar.gz
-127eb50b1a7b100a932c2e893dc8af10ffb2a4bdd18bd028a19ca5222815d43b  omegaprompt-2.2.5-py3-none-any.whl
-c85dbf97cbe12761ec3a88022ba7c257d059a4fddf1e9bb82677e11dfbc81e92  omegaprompt-2.2.5.tar.gz
-6dd698c24954d6fd5a0292f77569b8ecd8b0dbfe7f8cfdc553d22a4f5c54c180  omega_lock-0.3.12-py3-none-any.whl
-b5c1957749a93ee697f52a7401e26311ce5410874c55f6a252018d79395295de  omega_lock-0.3.12.tar.gz
+395ab96a6979ae5130397e507c07f48c8a338f5697df459f19df3101ab413323  antemortem-0.12.4-py3-none-any.whl
+b37622de01a23a4601827493ad0d0a9e207993524363674f323b1e13aa1ef5ff  antemortem-0.12.4.tar.gz
+f74b4ac55fd41af93816487ac2a694c71aaab2d473ae50d30ea0d2daab751747  mini_antemortem_cli-0.11.5-py3-none-any.whl
+1e55f0de559b2f70baca105f5c8730f3f268ae2d454b112d3bcdd3b8e679afa7  mini_antemortem_cli-0.11.5.tar.gz
+75b32424c7b93b5ee6ee026909bba166cf93a06b4ff9696fe31485c583395a28  mini_omega_lock-0.8.6-py3-none-any.whl
+31bcdcc776d077766857ad0942f0ed6ba97b08204c71ba69f4e6a84f64af2506  mini_omega_lock-0.8.6.tar.gz
+9fab54398337cff17c24a302ea26c0da439e93c06af24cfb36ae026dde93ba90  omegaprompt-2.2.8-py3-none-any.whl
+46654b03634ce08acfcf9ca107f1f9efa8beda592c0b515d6ba8199265f1bedc  omegaprompt-2.2.8.tar.gz
+a50129730e46f04c38add465b2856d24cab68e870f961af704ee96f64cf2fd3b  omega_lock-0.3.13-py3-none-any.whl
+fdff29e4fcf7ea28688733028eda40bdaaf964ad5d94be014116428229dd549d  omega_lock-0.3.13.tar.gz
 8f7fa2662f5adc97b8670031caa1fb332911571d910857145d6bb5613ade001e  antemortem_structural_lab-0.8.2-py3-none-any.whl
 1053aef3e97fecfb22151995c4e1800602e1c6b730fef1431ade39861615c1ff  antemortem_structural_lab-0.8.2.tar.gz
 ```
@@ -171,6 +171,6 @@ b5c1957749a93ee697f52a7401e26311ce5410874c55f6a252018d79395295de  omega_lock-0.3
   ```
 
   For public artifacts only, copy the Tier 1 lines into a separate checksum file. Checksums establish byte identity against this ledger; they are not digital signatures or evidence of artifact safety.
-* **Public download sources:** [antemortem 0.12.3](https://pypi.org/project/antemortem/0.12.3/#files) · [mini-antemortem-cli 0.11.3](https://pypi.org/project/mini-antemortem-cli/0.11.3/#files) · [mini-omega-lock 0.8.5](https://pypi.org/project/mini-omega-lock/0.8.5/#files) · [omegaprompt 2.2.5](https://pypi.org/project/omegaprompt/2.2.5/#files) · [omega-lock 0.3.12](https://pypi.org/project/omega-lock/0.3.12/#files) · [antemortem-structural-lab 0.8.2](https://pypi.org/project/antemortem-structural-lab/0.8.2/#files).
+* **Public download sources:** [antemortem 0.12.4](https://pypi.org/project/antemortem/0.12.4/#files) · [mini-antemortem-cli 0.11.5](https://pypi.org/project/mini-antemortem-cli/0.11.5/#files) · [mini-omega-lock 0.8.6](https://pypi.org/project/mini-omega-lock/0.8.6/#files) · [omegaprompt 2.2.8](https://pypi.org/project/omegaprompt/2.2.8/#files) · [omega-lock 0.3.13](https://pypi.org/project/omega-lock/0.3.13/#files) · [antemortem-structural-lab 0.8.2](https://pypi.org/project/antemortem-structural-lab/0.8.2/#files).
 * **Ecosystem Verification Ledger:** **4,306 PASS** is the historical cross-run ledger (**2,160 + 1,561 + 230 + 355**) spanning public-package checks, Structural Lab, and private-harness runs. It is not a fresh synchronized test total for the eight artifact pins on this page. The fail-closed examples above preserve explicit rejection exits.
 * **한국어 문서 (Korean Documentation):** [README.ko.md](./README.ko.md)
