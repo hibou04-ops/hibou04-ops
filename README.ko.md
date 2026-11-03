@@ -164,8 +164,6 @@ b5c1957749a93ee697f52a7401e26311ce5410874c55f6a252018d79395295de  omega_lock-0.3
 1053aef3e97fecfb22151995c4e1800602e1c6b730fef1431ade39861615c1ff  antemortem_structural_lab-0.8.2.tar.gz
 ```
 
-**누락된 소스 압축 파일:** `omega_crucible-1.0.3.tar.gz`는 검증한 로컬 매니페스트와 v1.0.3 GitHub Release의 첨부 파일 17개에 없습니다. 확인된 SHA-256이 없어 checksum 블록에서 제외했습니다. 비공개 파일 5개는 표준 wheel·소스 파일명의 `omega_` 접두부를 포함해 실제 기록된 이름을 그대로 유지합니다.
-
 * **로컬 아티팩트 무결성 검증:** 나열된 파일을 모두 보유한 권한 있는 검증자는 다음 명령을 실행합니다.
 
   ```bash

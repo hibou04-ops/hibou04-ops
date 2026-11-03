@@ -164,8 +164,6 @@ b5c1957749a93ee697f52a7401e26311ce5410874c55f6a252018d79395295de  omega_lock-0.3
 1053aef3e97fecfb22151995c4e1800602e1c6b730fef1431ade39861615c1ff  antemortem_structural_lab-0.8.2.tar.gz
 ```
 
-**Missing source archive:** `omega_crucible-1.0.3.tar.gz` is absent from the verified local manifest and the v1.0.3 GitHub Release's 17 assets. It has no verified SHA-256 entry and is intentionally excluded from the checksum block. The five listed private files retain their exact recorded names, including the standard `omega_` wheel/source filename prefix.
-
 * **Verify artifact integrity locally:** Authorized auditors with all listed files run:
 
   ```bash
